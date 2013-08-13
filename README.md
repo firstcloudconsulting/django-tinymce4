@@ -10,7 +10,7 @@ Quickstart:
 
 Install django-tinymce:
 
-    $ pip install django-tinymce
+    $ pip install git+http://github.com/progressive-cms/django-tinymce4.git#egg=tinymce
 
 Add tinymce to INSTALLED_APPS in settings.py for your project:
 
@@ -40,6 +40,8 @@ In your code:
 Documentation:
 ===
 http://django-tinymce.readthedocs.org/
+
+** NOTE: These are the docs for the original django-tinymce based on TinyMCE 3.5.8
 
 Support and updates:
 ===
