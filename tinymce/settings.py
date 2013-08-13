@@ -15,7 +15,7 @@ if 'staticfiles' in settings.INSTALLED_APPS or 'django.contrib.staticfiles' in s
     JS_URL = getattr(settings, 'TINYMCE_JS_URL',os.path.join(settings.STATIC_URL, 'tiny_mce/tinymce.min.js'))
     JS_ROOT = getattr(settings, 'TINYMCE_JS_ROOT',os.path.join(settings.STATIC_ROOT, 'tiny_mce'))
 else:
-    JS_URL = getattr(settings, 'TINYMCE_JS_URL','%sjs/tiny_mce/tiny_mce.js' % settings.MEDIA_URL)
+    JS_URL = getattr(settings, 'TINYMCE_JS_URL','%sjs/tiny_mce/tinymce.min.js' % settings.MEDIA_URL)
     JS_ROOT = getattr(settings, 'TINYMCE_JS_ROOT', os.path.join(settings.MEDIA_ROOT, 'js/tiny_mce'))
 
 JS_BASE_URL = JS_URL[:JS_URL.rfind('/')]
