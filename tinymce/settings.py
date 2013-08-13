@@ -7,8 +7,9 @@ DEFAULT_CONFIG = getattr(settings, 'TINYMCE_DEFAULT_CONFIG',
             'relative_urls': False,
             'plugins': ['advlist autolink lists link image charmap print preview anchor',
                         'searchreplace visualblocks code fullscreen',
-                        'insertdatetime media table contextmenu paste'],
-            'toolbar': 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+                        'insertdatetime media table contextmenu paste textcolor'],
+            'toolbar1': 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+            'toolbar2': 'forecolor backcolor | link image'
         })
 
 USE_SPELLCHECKER = getattr(settings, 'TINYMCE_SPELLCHECKER', False)
