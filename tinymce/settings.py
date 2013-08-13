@@ -2,7 +2,14 @@ import os
 from django.conf import settings
 
 DEFAULT_CONFIG = getattr(settings, 'TINYMCE_DEFAULT_CONFIG',
-        {'theme': "modern", 'relative_urls': False})
+        {
+            'theme': "modern",
+            'relative_urls': False,
+            'plugins': ['advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table contextmenu paste'],
+            'toolbar': 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image'
+        })
 
 USE_SPELLCHECKER = getattr(settings, 'TINYMCE_SPELLCHECKER', False)
 
