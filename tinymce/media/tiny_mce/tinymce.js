@@ -30346,19 +30346,22 @@ define("tinymce/ui/FilePicker", [
 
 			settings.spellcheck = false;
 
-			fileBrowserCallback = editor.settings.file_browser_callback;
+			if (typeof $.proxy == 'function') {
+				fileBrowserCallback = $.proxy(editor.settings.file_browser_callback);
+			} else {
+				fileBrowserCallback = editor.settings.file_browser_callback;
+			}
+
 			if (fileBrowserCallback) {
 				settings.icon = 'browse';
 
 				settings.onaction = function() {
-					if (jquery && jquery.proxy) {
-						fileBrowserCallback(
-							self.getEl('inp').id,
-							self.getEl('inp').value,
-							settings.filetype,
-							window
-						);
-					}
+					fileBrowserCallback(
+						self.getEl('inp').id,
+						self.getEl('inp').value,
+						settings.filetype,
+						window
+					);
 				};
 			}
 
