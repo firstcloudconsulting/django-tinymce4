@@ -30346,7 +30346,7 @@ define("tinymce/ui/FilePicker", [
 
 			settings.spellcheck = false;
 
-			fileBrowserCallback = $.proxy(editor.settings.file_browser_callback);
+			fileBrowserCallback = editor.settings.file_browser_callback;
 
 			if (fileBrowserCallback) {
 				settings.icon = 'browse';
