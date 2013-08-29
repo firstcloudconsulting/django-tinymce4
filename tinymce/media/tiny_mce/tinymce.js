@@ -30351,12 +30351,14 @@ define("tinymce/ui/FilePicker", [
 				settings.icon = 'browse';
 
 				settings.onaction = function() {
-					fileBrowserCallback(
-						self.getEl('inp').id,
-						self.getEl('inp').value,
-						settings.filetype,
-						window
-					);
+					if (jquery && jquery.proxy) {
+						fileBrowserCallback(
+							self.getEl('inp').id,
+							self.getEl('inp').value,
+							settings.filetype,
+							window
+						);
+					}
 				};
 			}
 
