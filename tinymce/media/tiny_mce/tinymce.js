@@ -30352,7 +30352,7 @@ define("tinymce/ui/FilePicker", [
 				settings.icon = 'browse';
 
 				if (typeof fileBrowserCallback != 'function') {
-					fileBrowserCallback = window[fileBorwserCallback];
+					fileBrowserCallback = window[fileBrowserCallback];
 				} 
 
 				settings.onaction = function() {
