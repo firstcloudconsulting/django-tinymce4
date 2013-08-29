@@ -30346,14 +30346,14 @@ define("tinymce/ui/FilePicker", [
 
 			settings.spellcheck = false;
 
-			if (typeof $.proxy == 'function') {
-				fileBrowserCallback = $.proxy(editor.settings.file_browser_callback);
-			} else {
-				fileBrowserCallback = editor.settings.file_browser_callback;
-			}
+			fileBrowserCallback = $.proxy(editor.settings.file_browser_callback);
 
 			if (fileBrowserCallback) {
 				settings.icon = 'browse';
+
+				if (typeof fileBrowserCallback != 'function') {
+					fileBrowserCallback = window[fileBorwserCallback];
+				} 
 
 				settings.onaction = function() {
 					fileBrowserCallback(
