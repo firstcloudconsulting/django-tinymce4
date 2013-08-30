@@ -6,17 +6,11 @@ from django.core import urlresolvers
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext, loader
+from django.utils import simplejson
 from django.utils.translation import ugettext as _
 from tinymce.compressor import gzip_compressor
 from tinymce.widgets import get_language_config
-try:
-    import json
-except ImportError:
-    from django.utils import simplejson as json
-try:
-    from django.views.decorators.csrf import csrf_exempt
-except ImportError:
-    pass
+from django.views.decorators.csrf import csrf_exempt
 
 def textareas_js(request, name, lang=None):
     """
@@ -38,6 +32,7 @@ def textareas_js(request, name, lang=None):
     return HttpResponse(template.render(context),
             content_type="application/x-javascript")
 
+@csrf_exempt
 def spell_check(request):
     """
     Returns a HttpResponse that implements the TinyMCE spellchecker protocol.
@@ -46,20 +41,19 @@ def spell_check(request):
         import enchant
 
         raw = request.raw_post_data
-        input = json.loads(raw)
+        input = simplejson.loads(raw)
         id = input['id']
         method = input['method']
         params = input['params']
-        lang = params[0]
-        arg = params[1]
+        lang = params['lang']
+        arg = params['words']
 
-        if not enchant.dict_exists(str(lang)):
+        if not enchant.dict_exists(lang):
             raise RuntimeError("dictionary not found for language '%s'" % lang)
+        checker = enchant.Dict(lang)
 
-        checker = enchant.Dict(str(lang))
-
-        if method == 'checkWords':
-            result = [word for word in arg if word and not checker.check(word)]
+        if method == 'spellcheck' or method == 'checkWords':
+            result = [word for word in arg if not checker.check(word)]
         elif method == 'getSuggestions':
             result = checker.suggest(arg)
         else:
@@ -71,14 +65,10 @@ def spell_check(request):
         }
     except Exception:
         logging.exception("Error running spellchecker")
-        return HttpResponse(_("Error running spellchecker"))
-    return HttpResponse(json.dumps(output),
+        return HttpResponse(_("Error running spellchecker '%s'" % i))
+    return HttpResponse(simplejson.dumps(output),
             content_type='application/json')
 
-try:
-    spell_check = csrf_exempt(spell_check)
-except NameError:
-    pass
 
 def preview(request, name):
     """
