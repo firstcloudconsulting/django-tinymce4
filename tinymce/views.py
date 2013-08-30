@@ -65,7 +65,7 @@ def spell_check(request):
         }
     except Exception:
         logging.exception("Error running spellchecker")
-        return HttpResponse(_("Error running spellchecker '%s'" % i))
+        return HttpResponse(_("Error running spellchecker"))
     return HttpResponse(simplejson.dumps(output),
             content_type='application/json')
 
