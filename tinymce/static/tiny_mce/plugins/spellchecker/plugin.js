@@ -478,7 +478,7 @@ define("tinymce/spellcheckerplugin/Plugin", [
 				lastSuggestions = suggestions;
 
 				textFilter.filter(function(match) {
-					return !!suggestions[match[2][0]];
+					return (suggestions.indexOf(match[2][0]) > -1);
 				}).mark(editor.dom.create('span', {
 					"class": 'mce-spellchecker-word',
 					"data-mce-bogus": 1
