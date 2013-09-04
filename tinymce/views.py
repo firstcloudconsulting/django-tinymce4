@@ -47,20 +47,27 @@ def spell_check(request):
         params = input['params']
         lang = params['lang']
         arg = params['words']
+	suggestions = {}
 
         if not enchant.dict_exists(lang):
             raise RuntimeError("dictionary not found for language '%s'" % lang)
         checker = enchant.Dict(lang)
 
-        if method == 'spellcheck' or method == 'checkWords':
+        if method == 'spellcheck':
+            result = [word for word in arg if not checker.check(word)]
+
+            for word in result:
+                suggestions[word] = checker.suggest(word) 
+        elif method == 'checkWords':
             result = [word for word in arg if not checker.check(word)]
         elif method == 'getSuggestions':
-            result = checker.suggest(arg)
+            suggestions = result = checker.suggest(arg)
         else:
             raise RuntimeError("Unkown spellcheck method: '%s'" % method)
         output = {
             'id': id,
             'result': result,
+            'suggestions': suggestions,
             'error': None,
         }
     except Exception:
