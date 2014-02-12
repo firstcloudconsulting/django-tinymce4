@@ -19,9 +19,10 @@ tinymce.PluginManager.add('codemirror', function(editor, url) {
 		editor.selection.setContent('<span class="CmCaReT" style="display:none">&#0;</span>');
 
 		// Open editor window
-		var win = editor.windowManager.open({
-			title: 'HTML source code',
-			url: url + '/source.html',
+                var userSettings = editor.settings.codemirror ? editor.settings.codemirror : null;
+                var win = editor.windowManager.open({
+                        title: 'HTML source code',
+                        url: ( userSettings.path || url ) + '/source.html',
 			width: 800,
 			height: 550,
 			resizable : true,
