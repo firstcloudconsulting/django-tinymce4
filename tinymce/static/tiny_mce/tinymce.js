@@ -19658,7 +19658,7 @@ define("tinymce/ui/Control", [
 					});
 
                                         try {
-                                                defaultView.getComputedStyle(elm, null).getPropertyValue(name);
+                                                return defaultView.getComputedStyle(elm, null).getPropertyValue(name);
                                         } catch (ex) {
                                                 // Old safari might fail, and outdated jQuery in Firefox, Fixes PBM CMS Bug #286
                                                 return null;
