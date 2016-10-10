@@ -515,8 +515,17 @@ define("tinymce/spellcheckerplugin/Plugin", [
 			});
 
 			function defaultSpellcheckCallback(method, words, doneCallback) {
-				JSONRequest.sendRPC({
-					url: new URI(url).toAbsolute(settings.spellchecker_rpc_url),
+                var spellchecker_rpc_url = settings.spellchecker_rpc_url;
+
+                if (settings.spellchecker_rpc_url.startsWith('/')) {
+                    var pathArray = location.href.split('/');
+                    var protocol = pathArray[0];
+                    var host = pathArray[2];
+                    spellchecker_rpc_url = protocol + '//' + host + settings.spellchecker_rpc_url;
+                }   
+                
+                JSONRequest.sendRPC({
+                    url: new URI(url).toAbsolute(spellchecker_rpc_url),
 					method: method,
 					params: {
 						lang: settings.spellchecker_language || "en",
